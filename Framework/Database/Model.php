@@ -51,48 +51,6 @@ class Model
 		return $factory;
 	}
 
-	public function oneToOne($class)
-	{
-		return new oneToOne($class, $this);
-	}
-
-	public function oneToMany($class)
-	{
-		return new oneToMany($class, $this);
-		// $name = basename(get_called_class());
-		// $foreignKey = strtolower($name) . '_id';
-
-		// $models = $this->db->select("SELECT * FROM " .  str_replace('App\\Models\\', '', $class) . "s WHERE " . $foreignKey . " = :id", ['id' => $this->id]);
-		// $collection = new Collection($models, str_replace('App\\Models\\', '', $class));
-
-		// if ($collection->first())
-		// 	return $collection;
-
-		// return null;
-	}
-
-	public function manyToMany($class, $table, $own_column, $other_column)
-	{
-		$models = $this->db->select("SELECT * FROM " .  str_replace('App\\Models\\', '', $class) . "s WHERE id IN (SELECT " . $other_column . " FROM " . $table . " WHERE " . $own_column . " = :id)", ['id' => $this->id]);
-		$collection = new Collection($models, str_replace('App\\Models\\', '', $class));
-
-		if ($collection->first())
-			return $collection;
-
-		return null;
-	}
-
-	public function belongsTo($class)
-	{
-		$models = $this->db->select("SELECT * FROM " .  str_replace('App\\Models\\', '', $class) . "s WHERE id = :id", ['id' => $this->id]);
-		$collection = new Collection($models, str_replace('App\\Models\\', '', $class));
-
-		if ($collection->first())
-			return $collection->first();
-
-		return null;
-	}
-
 	public function setModelData($data)
 	{
 		foreach ($data as $key => $value)
