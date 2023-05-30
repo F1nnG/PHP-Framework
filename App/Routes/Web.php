@@ -18,7 +18,7 @@ class Web
 		$route->get('/test2', function(Request $request) {
 			Migration::run();
 
-			$user = User::Factory()->create();
+			$user = User::Factory(10)->create();
 
 			echo '<pre>';
 			print_r($user);

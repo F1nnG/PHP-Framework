@@ -9,7 +9,7 @@ class UserFactory extends Factory
 	public function definition()
 	{
 		return [
-			'name' => 'Finn',
+			'name' => $this->faker()->name(),
 		];
 	}
 }

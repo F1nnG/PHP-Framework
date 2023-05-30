@@ -2,10 +2,12 @@
 
 namespace Framework\Database;
 
+use Framework\Helpers\Faker;
+
 abstract class Factory
 {
 	protected $amount;
-	protected $factoryData;
+	protected $factoryData = [];
 	protected $modelName;
 	protected $lowerModelName;
 
@@ -14,7 +16,6 @@ abstract class Factory
 	public function __construct($amount = 1)
 	{
 		$this->amount = $amount;
-		$this->factoryData = $this->definition();
 		$this->modelName = str_replace('Factory', '', basename(get_called_class()));
 		$this->lowerModelName = strtolower($this->modelName);
 	}
@@ -32,16 +33,22 @@ abstract class Factory
 	{
 		$models = [];
 		for ($i = 0; $i < $this->amount; $i++) {
-			$definition = $this->factoryData;
+			$definition = $this->definition();
 
 			$columns = '';
 			$values = '';
 			$bindings = [];
 
 			foreach ($definition as $key => $value) {
-				$columns .= $key . ', ';
-				$values .= ':' . $key . ', ';
-				$bindings[$key] = $value;
+				if (array_key_exists($key, $this->factoryData)) {
+					$columns .= $key . ', ';
+					$values .= ':' . $key . ', ';
+					$bindings[$key] = $this->factoryData[$key];
+				} else {
+					$columns .= $key . ', ';
+					$values .= ':' . $key . ', ';
+					$bindings[$key] = $value;
+				}
 			}
 
 			$columns = rtrim($columns, ', ');
@@ -60,5 +67,10 @@ abstract class Factory
 		if ($this->amount == 1)
 			return $collection->first();
 		return $collection;
+	}
+
+	protected function faker()
+	{
+		return new Faker();
 	}
 }
