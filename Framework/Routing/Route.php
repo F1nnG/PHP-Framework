@@ -3,7 +3,7 @@
 namespace Framework\Routing;
 
 use Framework\Routing\Callback;
-use App\Models;
+use Framework\EdgeHandling\Error;
 
 class Route
 {
@@ -43,15 +43,11 @@ class Route
 	{
 		$route = $this->getRoute($request->url());
 
-		if (!$route) {
-			echo 'invalid route';
-			return;
-		}
+		if (!$route)
+			return new Error(404, 'Page Not Found');
 
-		if (!$this->isCallable($route)) {
-			echo 'invalid callback';
-			return;
-		}
+		if (!$this->isCallable($route))
+			return new Error(404, 'Method Not Found');
 
 		$this->triggerRoute($route, $request);
 	}

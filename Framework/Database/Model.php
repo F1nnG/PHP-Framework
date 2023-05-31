@@ -4,8 +4,6 @@ namespace Framework\Database;
 
 use Framework\Database\Database;
 use Framework\Database\Collection;
-use Framework\Database\Relationships\oneToOne;
-use Framework\Database\Relationships\oneToMany;
 
 class Model
 {

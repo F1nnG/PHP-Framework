@@ -2,6 +2,8 @@
 
 namespace Framework\Database;
 
+use Framework\EdgeHandling\Error;
+
 class Database
 {
 	private $host;
@@ -23,7 +25,7 @@ class Database
 			$this->conn = new \PDO($this->dsn, $this->username, $this->password);
 			$this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		} catch (\PDOException $e) {
-			echo "Connection failed: " . $e->getMessage();
+			return new Error(500, $e->getMessage());
 		}
 	}
 

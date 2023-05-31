@@ -6,6 +6,7 @@ use Framework\Routing\Route;
 use Framework\Routing\Request;
 use App\Database\Migrations\Migration;
 use App\Models\User;
+use Framework\EdgeHandling\Error;
 
 class Web
 {
@@ -15,13 +16,8 @@ class Web
 			echo 'hallo';
 		});
 
-		$route->get('/test2/{User}', function(Request $request, $user) {
-			Migration::run();
-			User::Factory(10)->create();
-
-			echo '<pre>';
-			print_r($user);
-			echo '</pre>';
+		$route->get('/test2', function(Request $request) {
+			return new Error(404, 'page not found');
 		});
 	}
 }
