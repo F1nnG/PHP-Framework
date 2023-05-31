@@ -63,6 +63,19 @@ class Commands
 		$this->message("Success\n", 'light_green');
 	}
 
+	public function createservice(array $arguments):void
+	{
+		$serviceName = $arguments[0];
+
+		$filename = "App/Services/$serviceName.php";
+		$phpCode = "<?php\n\nnamespace App\Services;\n\nclass $serviceName\n{\n	\n}";
+
+		file_put_contents($filename, $phpCode);
+
+		$this->message("Service Creation: ", 'white');
+		$this->message("Success\n", 'light_green');
+	}
+
 	public function createmodel(array $arguments): void
 	{
 		$modelName = $arguments[0];

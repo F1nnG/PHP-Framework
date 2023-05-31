@@ -2,14 +2,12 @@
 
 namespace App\Controllers;
 
-use Framework\Views\View;
+use App\Services\HomeService;
 
 class HomeController
 {
 	public function show()
 	{
-		return View::render('home', [
-			'maker' => 'Finn',
-		]);
+		HomeService::showHomepage();
 	}
 }
