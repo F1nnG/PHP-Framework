@@ -61,57 +61,57 @@ class Faker
 		];
 	}
 
-	public function name()
+	public function name(): string
 	{
 		return $this->prefixes[array_rand($this->prefixes)] . ' ' . $this->firstnames[array_rand($this->firstnames)] . ' ' . $this->lastnames[array_rand($this->lastnames)];
 	}
 
-	public function firstname()
+	public function firstname(): string
 	{
 		return $this->firstnames[array_rand($this->firstnames)];
 	}
 
-	public function lastname()
+	public function lastname(): string
 	{
 		return $this->lastnames[array_rand($this->lastnames)];
 	}
 
-	public function number()
+	public function number(): int
 	{
 		return rand(0, 2147483647);
 	}
 
-	public function numberBetween($min, $max)
+	public function numberBetween(int $min, int $max): int
 	{
 		return rand($min, $max);
 	}
 
-	public function email()
+	public function email(): string
 	{
 		return $this->firstname() . '.' . $this->lastname() . $this->emails[array_rand($this->emails)];
 	}
 
-	public function password()
+	public function password(): string
 	{
 		return password_hash('password', PASSWORD_DEFAULT);
 	}
 
-	public function date()
+	public function date(): string
 	{
 		return date('d-m-Y', mktime(0, 0, 0, rand(1, 12), rand(1, 28), rand(1900, 2020)));
 	}
 
-	public function datetime()
+	public function datetime(): string
 	{
 		return date('d-m-Y H:i:s', mktime(rand(0, 23), rand(0, 59), rand(0, 59), rand(1, 12), rand(1, 28), rand(1900, 2020)));
 	}
 
-	public function time()
+	public function time(): string
 	{
 		return date('H:i:s', mktime(rand(0, 23), rand(0, 59), rand(0, 59), rand(1, 12), rand(1, 28), rand(1900, 2020)));
 	}
 
-	public function text($length = 255)
+	public function text(int $length = 255): string
 	{
 		$text = '';
 		$possible = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 ';
@@ -123,7 +123,7 @@ class Faker
 		return $text;
 	}
 
-	public function textBetween($min, $max)
+	public function textBetween(int $min, int $max): string
 	{
 		$text = '';
 		$possible = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz 0123456789 ';

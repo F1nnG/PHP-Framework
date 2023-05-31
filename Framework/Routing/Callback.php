@@ -11,18 +11,18 @@ class Callback
 		$this->callback = $callback;
 	}
 
-	public function getParameters()
+	public function getParameters(): array
 	{
 		$reflection = new \ReflectionFunction($this->callback);
 		return $reflection->getParameters();
 	}
 
-	public function isCallable()
+	public function isCallable(): bool
 	{
 		return is_callable($this->callback);
 	}
 
-	public function call($parameters)
+	public function call(array $parameters): void
 	{
 		$functionParameters = [];
 		$callbackParameters = $this->getParameters();

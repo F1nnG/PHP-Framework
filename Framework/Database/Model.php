@@ -7,15 +7,9 @@ use Framework\Database\Collection;
 
 class Model
 {
-	private $db;
 	public $id;
 
-	public function __construct()
-	{
-		$this->db = new Database();
-	}
-
-	static public function all()
+	static public function all(): Collection|null
 	{
 		$db = new Database();
 		$name = basename(get_called_class());
@@ -28,7 +22,7 @@ class Model
 		return null;
 	}
 
-	static public function find($id)
+	static public function find(int $id): Model|null
 	{
 		$db = new Database();
 		$name = basename(get_called_class());
@@ -42,14 +36,15 @@ class Model
 		return null;
 	}
 
-	static public function Factory($amount = 1)
+	static public function Factory(int $amount = 1): Factory
 	{
 		$factoryName = 'App\\Database\\Factories\\' . basename(get_called_class()) . 'Factory';
 		$factory = new $factoryName($amount);
+
 		return $factory;
 	}
 
-	public function setModelData($data)
+	public function setModelData(array $data): void
 	{
 		foreach ($data as $key => $value)
 			$this->$key = $value;

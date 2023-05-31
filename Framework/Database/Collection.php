@@ -6,11 +6,9 @@ class Collection
 {
 	public $items = [];
 
-	public function __construct($items, $class)
+	public function __construct(array $items, string $class)
 	{
-		$modelName = $class;
-		if (!str_contains($class, 'App\\Models\\'))
-			$modelName = 'App\\Models\\' . $class;
+		$modelName = $this->resolveModelName($class);
 
 		foreach ($items as $item) {
 			$model = new $modelName();
@@ -19,17 +17,27 @@ class Collection
 		}
 	}
 
-	public function first()
+	public function first(): Model|null
 	{
-		if (array_key_exists(0, $this->items))
-			return $this->items[0];
-		return null;
+		return $this->find(0);
 	}
 
-	public function last()
+	public function last(): Model|null
 	{
-		if (array_key_exists(count($this->items) - 1, $this->items))
-			return $this->items[count($this->items) - 1];
-		return null;
+		return $this->find(count($this->items) - 1);
+	}
+
+	public function find(int $index): Model|null
+	{
+		return $this->items[$index] ?? null;
+	}
+
+	private function resolveModelName(string $class): string
+	{
+		if (!str_contains($class, 'App\\Models\\')) {
+			$class = 'App\\Models\\' . $class;
+		}
+
+		return $class;
 	}
 }

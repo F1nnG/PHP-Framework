@@ -7,13 +7,13 @@ class Request
 	private $request;
 	private $server;
 
-	public function __construct($request, $server)
+	public function __construct(array $request, array $server)
 	{
 		$this->request = $request;
 		$this->server = $server;
 	}
 
-	public function input($key = null)
+	public function input(string|null $key = null): string|null
 	{
 		if ($key)
 			return $this->request[$key];
@@ -21,7 +21,7 @@ class Request
 		return $this->request;
 	}
 
-	public function server($key = null)
+	public function server(string|null $key = null): string|null
 	{
 		if ($key)
 			return $this->server[$key];
@@ -29,7 +29,7 @@ class Request
 		return $this->server;
 	}
 
-	public function url()
+	public function url(): string
 	{
 		return '/' . $this->request['url'];
 	}

@@ -29,38 +29,41 @@ class Database
 		}
 	}
 
-	public function query($query)
+	public function query(string $query): bool
 	{
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute();
+
 		return true;
 	}
 
-	public function select($query, $params = [])
+	public function select(string $query, array $params = []): array
 	{
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute($params);
+
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
-	public function insert($query, $params = [])
+	public function insert(string $query, array $params = []): int
 	{
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute($params);
+
 		return $this->conn->lastInsertId();
 	}
 
-	public function update($query, $params = [])
+	public function update(string $query, array $params = []): bool
 	{
 		$stmt = $this->conn->prepare($query);
 		$stmt->execute($params);
+
 		return true;
 	}
 
-	public function freshDatabase()
+	public function freshDatabase(): void
 	{
-		$db = new Database();
-		$tables = $db->select("SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE';");
+		$tables = $this->select("SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE';");
 
 		foreach ($tables as $table) {
 			if ($table['TABLE_SCHEMA'] === $this->dbname)

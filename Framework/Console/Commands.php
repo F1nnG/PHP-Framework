@@ -32,7 +32,7 @@ class Commands
 
 	public function migrate($arguments)
 	{
-		if (str_contains('--fresh', $arguments))
+		if (in_array('--fresh', $arguments))
 			Migration::run(true);
 		else
 			Migration::run();
@@ -49,6 +49,9 @@ class Commands
 		$phpCode = "<?php\n\nnamespace App\Models;\n\nuse Framework\Database\Model;\n\nclass $modelName extends Model\n{\n	\n}";
 
 		file_put_contents($filename, $phpCode);
+
+		$this->message("Model Creation: ", 'white');
+		$this->message("Success\n", 'light_green');
 	}
 
 	public function createFactory($arguments)
@@ -59,6 +62,9 @@ class Commands
 		$phpCode = "<?php\n\nnamespace App\Database\Factories;\n\nuse Framework\Database\Factory;\n\nclass $factoryName extends Factory\n{\n	public function definition()\n	{\n		return [\n			\n		];\n	}\n}";
 
 		file_put_contents($filename, $phpCode);
+
+		$this->message("Factory Creation: ", 'white');
+		$this->message("Success\n", 'light_green');
 	}
 
 	private function message($message, $color)

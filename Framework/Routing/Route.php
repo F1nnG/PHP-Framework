@@ -9,17 +9,17 @@ class Route
 {
 	private static $routes = [];
 
-	public static function get($route, $callback)
+	public static function get(string $route, \Closure $callback)
 	{
 		self::createRoute($route, $callback, 'GET');
 	}
 
-	public static function post($route, $callback)
+	public static function post(string $route, \Closure $callback)
 	{
 		self::createRoute($route, $callback, 'POST');
 	}
 
-	private static function createRoute($route, $callback, $method)
+	private static function createRoute(string $route, \Closure $callback, string $method)
 	{
 		$pattern = '/{(?<Model>[a-zA-Z]*)}/m';
 
@@ -41,7 +41,7 @@ class Route
 		];
 	}
 
-	public static function route(Request $request)
+	public static function route(Request $request): bool|Error
 	{
 		$route = self::getRoute($request->url());
 
@@ -52,14 +52,11 @@ class Route
 			return new Error(404, 'Method Not Found');
 
 		self::triggerRoute($route, $request);
+
+		return true;
 	}
 
-	private static function isCallable($route)
-	{
-		return $route['callback']->isCallable();
-	}
-
-	private static function getRoute($url)
+	private static function getRoute(string $url): array|null
 	{
 		if (array_key_exists($url, self::$routes))
 			return self::$routes[$url];
@@ -78,18 +75,20 @@ class Route
 		return null;
 	}
 
-	private static function triggerRoute($route, $request)
+	private static function isCallable(array $route): bool
 	{
+		return $route['callback']->isCallable();
+	}
+
+	private static function triggerRoute(array $route, Request $request): void
+	{
+		$params = ['request' => $request];
+
 		if ($route['usesModel']) {
 			$model = 'App\\Models\\' . $route['model'];
-			$route['callback']->call([
-				'request' => $request,
-				strtolower($route['model']) => $model::find($route['id']),
-			]);
-		} else {
-			$route['callback']->call([
-				'request' => $request,
-			]);
+			$params[strtolower($route['model'])] = $model::find($route['id']);
 		}
+
+		$route['callback']->call($params);
 	}
 }
