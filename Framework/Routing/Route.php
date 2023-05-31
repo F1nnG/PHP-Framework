@@ -2,6 +2,7 @@
 
 namespace Framework\Routing;
 
+use Closure;
 use Framework\Routing\Callback;
 use Framework\EdgeHandling\Error;
 
@@ -9,9 +10,15 @@ class Route
 {
 	private static $routes = [];
 
-	public static function get(string $route, \Closure $callback)
+	public static function get(string $route, $callback)
 	{
-		self::createRoute($route, $callback, 'GET');
+		if (gettype($callback) == 'object')
+			self::createRoute($route, $callback, 'GET');
+		else {
+			$controller = new $callback[0]();
+			$closure = Closure::fromCallable([$controller, $callback[1]]);
+			self::createRoute($route, $closure, 'GET');
+		}
 	}
 
 	public static function post(string $route, \Closure $callback)

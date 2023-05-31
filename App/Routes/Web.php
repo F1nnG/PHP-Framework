@@ -3,10 +3,6 @@
 namespace App\Routes;
 
 use Framework\Routing\Route;
-use Framework\Views\View;
+use App\Controllers\HomeController;
 
-Route::get('/', function() {
-	return View::render('home', [
-		'maker' => 'Finn',
-	]);
-});
+Route::get('/', [HomeController::class, 'show']);

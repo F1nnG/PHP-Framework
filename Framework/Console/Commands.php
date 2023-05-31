@@ -50,6 +50,19 @@ class Commands
 		$this->message("Success\n", 'light_green');
 	}
 
+	public function createcontroller(array $arguments): void
+	{
+		$controllerName = $arguments[0];
+
+		$filename = "App/Controllers/$controllerName.php";
+		$phpCode = "<?php\n\nnamespace App\Controllers;\n\nclass $controllerName\n{\n	\n}";
+
+		file_put_contents($filename, $phpCode);
+
+		$this->message("Controller Creation: ", 'white');
+		$this->message("Success\n", 'light_green');
+	}
+
 	public function createmodel(array $arguments): void
 	{
 		$modelName = $arguments[0];
