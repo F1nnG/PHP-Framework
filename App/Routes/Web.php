@@ -8,16 +8,14 @@ use App\Database\Migrations\Migration;
 use App\Models\User;
 use Framework\EdgeHandling\Error;
 
-class Web
-{
-	public function __construct(Route $route)
-	{
-		$route->get('/test', function() {
-			echo 'hallo';
-		});
+Route::get('/', function(Request $request) {
+	echo 'dit is de homepagina';
+});
 
-		$route->get('/test2', function(Request $request) {
-			return new Error(404, 'page not found');
-		});
-	}
-}
+Route::get('/test', function() {
+	echo 'test test';
+});
+
+Route::get('/test2', function(Request $request) {
+	return new Error(404, 'page not found');
+});

@@ -7,9 +7,19 @@ use Framework\EdgeHandling\Error;
 
 class Route
 {
-	private $routes = [];
+	private static $routes = [];
 
-	public function get($route, $callback)
+	public static function get($route, $callback)
+	{
+		self::createRoute($route, $callback, 'GET');
+	}
+
+	public static function post($route, $callback)
+	{
+		self::createRoute($route, $callback, 'POST');
+	}
+
+	private static function createRoute($route, $callback, $method)
 	{
 		$pattern = '/{(?<Model>[a-zA-Z]*)}/m';
 
@@ -22,47 +32,39 @@ class Route
 			$regex = str_replace('{' . $matches[0]['Model'] . '}', '(?<id>[0-9]*)', $regex);
 		}
 
-		$this->routes[$route] = [
+		self::$routes[$route] = [
 			'callback' => new Callback($callback),
-			'method' => 'GET',
+			'method' => $method,
 			'usesModel' => $usesModel,
 			'model' => $usesModel ? $matches[0]['Model'] : null,
 			'regex' => $usesModel ? $regex : null,
 		];
 	}
 
-	public function post($route, $callback)
+	public static function route(Request $request)
 	{
-		$this->routes[$route] = [
-			'callback' => new Callback($callback),
-			'method' => 'POST',
-		];
-	}
-
-	public function route(Request $request)
-	{
-		$route = $this->getRoute($request->url());
+		$route = self::getRoute($request->url());
 
 		if (!$route)
-			return new Error(404, 'Page Not Found');
+			return new Error(404, 'Page ' . $request->url() . ' Not Found');
 
-		if (!$this->isCallable($route))
+		if (!self::isCallable($route))
 			return new Error(404, 'Method Not Found');
 
-		$this->triggerRoute($route, $request);
+		self::triggerRoute($route, $request);
 	}
 
-	private function isCallable($route)
+	private static function isCallable($route)
 	{
 		return $route['callback']->isCallable();
 	}
 
-	private function getRoute($url)
+	private static function getRoute($url)
 	{
-		if (array_key_exists($url, $this->routes))
-			return $this->routes[$url];
+		if (array_key_exists($url, self::$routes))
+			return self::$routes[$url];
 
-		foreach ($this->routes as $route) {
+		foreach (self::$routes as $route) {
 			preg_match_all('/' . $route['regex'] . '/', $url, $matches, PREG_SET_ORDER, 0);
 
 			if (array_key_exists(0, $matches)) {
@@ -76,7 +78,7 @@ class Route
 		return null;
 	}
 
-	private function triggerRoute($route, $request)
+	private static function triggerRoute($route, $request)
 	{
 		if ($route['usesModel']) {
 			$model = 'App\\Models\\' . $route['model'];

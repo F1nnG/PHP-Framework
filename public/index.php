@@ -1,18 +1,13 @@
 <?php
 
 require '../vendor/autoload.php';
+require '../App/Routes/Web.php';
 
 use Framework\Routing\Route;
 use Framework\Routing\Request;
-use App\Routes\Web;
 
-if (isset($_REQUEST['url'])) {
-	$route = new Route();
-	$web = new Web($route);
+if (!isset($_REQUEST['url']))
+	$_REQUEST['url'] = '';
 
-	$route->route(
-		new Request($_REQUEST, $_SERVER)
-	);
-} else {
-	echo 'No query string';
-}
+session_start();
+Route::route(new Request($_REQUEST, $_SERVER));
