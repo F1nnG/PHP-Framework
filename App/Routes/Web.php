@@ -15,16 +15,12 @@ class Web
 			echo 'hallo';
 		});
 
-		$route->get('/test2', function(Request $request) {
+		$route->get('/test2/{User}', function(Request $request, $user) {
 			Migration::run();
-
-			$user = User::Factory(10)->create();
+			User::Factory(10)->create();
 
 			echo '<pre>';
 			print_r($user);
-			// print_r($user);
-			// print_r($profile);
-			// print_r($posts);
 			echo '</pre>';
 		});
 	}

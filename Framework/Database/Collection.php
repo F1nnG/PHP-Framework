@@ -8,7 +8,10 @@ class Collection
 
 	public function __construct($items, $class)
 	{
-		$modelName = 'App\\Models\\' . $class;
+		$modelName = $class;
+		if (!str_contains($class, 'App\\Models\\'))
+			$modelName = 'App\\Models\\' . $class;
+
 		foreach ($items as $item) {
 			$model = new $modelName();
 			$model->setModelData($item);
