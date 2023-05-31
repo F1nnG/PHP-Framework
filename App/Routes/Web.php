@@ -3,12 +3,10 @@
 namespace App\Routes;
 
 use Framework\Routing\Route;
-use Framework\Routing\Request;
+use Framework\Views\View;
 
-Route::get('/', function(Request $request) {
-	echo 'This is the homepage';
-});
-
-Route::get('/test', function() {
-	echo 'test test';
+Route::get('/', function() {
+	return View::render('home', [
+		'maker' => 'Finn',
+	]);
 });
