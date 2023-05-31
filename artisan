@@ -10,6 +10,8 @@ $arguments = array_slice($argv, 2);
 $myCommand = new Commands();
 if ($command === 'migrate')
 	$myCommand->migrate($arguments);
+else if ($command === 'seed')
+	$myCommand->seed($arguments);
 else if ($command === 'make:model')
 	$myCommand->createmodel($arguments);
 else if ($command === 'make:factory')

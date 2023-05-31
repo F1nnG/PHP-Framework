@@ -3,6 +3,7 @@
 namespace Framework\Console;
 
 use App\Database\Migration;
+use App\Database\Seeder;
 
 class Commands
 {
@@ -30,7 +31,7 @@ class Commands
 		];
 	}
 
-	public function migrate($arguments)
+	public function migrate(array $arguments): void
 	{
 		if (in_array('--fresh', $arguments))
 			Migration::run(true);
@@ -41,7 +42,15 @@ class Commands
 		$this->message("Success\n", 'light_green');
 	}
 
-	public function createmodel($arguments)
+	public function seed(array $arguments): void
+	{
+		Seeder::run();
+
+		$this->message("Database Seeding: ", 'white');
+		$this->message("Success\n", 'light_green');
+	}
+
+	public function createmodel(array $arguments): void
 	{
 		$modelName = $arguments[0];
 
@@ -54,7 +63,7 @@ class Commands
 		$this->message("Success\n", 'light_green');
 	}
 
-	public function createFactory($arguments)
+	public function createFactory(array $arguments): void
 	{
 		$factoryName = $arguments[0];
 
@@ -67,7 +76,7 @@ class Commands
 		$this->message("Success\n", 'light_green');
 	}
 
-	private function message($message, $color)
+	private function message(string $message, string $color): void
 	{
 		echo "\e[" . $this->colors[$color] . "m" . $message . "\e[0m";
 	}
