@@ -2,7 +2,7 @@
 
 namespace App\Database\Factories;
 
-use Framework\Database\Factory;
+use Framework\Model\Factory;
 
 class UserFactory extends Factory
 {

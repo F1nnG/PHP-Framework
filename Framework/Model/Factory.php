@@ -1,7 +1,9 @@
 <?php
 
-namespace Framework\Database;
+namespace Framework\Model;
 
+use Framework\Database\Collection;
+use Framework\Database\Database;
 use Framework\Helpers\Faker;
 
 abstract class Factory

@@ -55,7 +55,7 @@ class Commands
 		$modelName = $arguments[0];
 
 		$filename = "App/Models/$modelName.php";
-		$phpCode = "<?php\n\nnamespace App\Models;\n\nuse Framework\Database\Model;\n\nclass $modelName extends Model\n{\n	\n}";
+		$phpCode = "<?php\n\nnamespace App\Models;\n\nuse Framework\Model\Model;\n\nclass $modelName extends Model\n{\n	\n}";
 
 		file_put_contents($filename, $phpCode);
 
@@ -68,7 +68,7 @@ class Commands
 		$factoryName = $arguments[0];
 
 		$filename = "App/Database/Factories/$factoryName.php";
-		$phpCode = "<?php\n\nnamespace App\Database\Factories;\n\nuse Framework\Database\Factory;\n\nclass $factoryName extends Factory\n{\n	public function definition()\n	{\n		return [\n			\n		];\n	}\n}";
+		$phpCode = "<?php\n\nnamespace App\Database\Factories;\n\nuse Framework\Model\Factory;\n\nclass $factoryName extends Factory\n{\n	public function definition()\n	{\n		return [\n			\n		];\n	}\n}";
 
 		file_put_contents($filename, $phpCode);
 

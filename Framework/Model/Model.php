@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Database;
+namespace Framework\Model;
 
 use Framework\Database\Database;
 use Framework\Database\Collection;
