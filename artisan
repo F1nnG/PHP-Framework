@@ -1,0 +1,18 @@
+<?php
+
+require './vendor/autoload.php';
+
+use Framework\Console\Commands;
+
+$command = isset($argv[1]) ? $argv[1] : null;
+$arguments = array_slice($argv, 2);
+
+$myCommand = new Commands();
+if ($command === 'migrate')
+	$myCommand->migrate($arguments);
+else if ($command === 'create:model')
+	$myCommand->createmodel($arguments);
+else if ($command === 'create:factory')
+	$myCommand->createFactory($arguments);
+else
+	echo "\e[0;31mCommand Not Found\e[0m\n";

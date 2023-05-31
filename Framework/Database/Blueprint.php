@@ -40,12 +40,16 @@ class Blueprint
 		$this->tableName = $tableName;
 	}
 
-	public function build()
+	public function build($fresh)
 	{
 		$columns = implode(', ', $this->columns);
 		$sql = "CREATE TABLE $this->tableName ($columns)";
 
 		$db = new Database();
+
+		if ($fresh)
+			$db->freshDatabase();
+
 		$db->query("DROP TABLE IF EXISTS $this->tableName");
 		$db->query($sql);
 		return $sql;

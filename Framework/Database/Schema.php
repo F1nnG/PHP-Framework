@@ -6,10 +6,10 @@ use Framework\Database\Blueprint;
 
 class Schema
 {
-	public static function create($tableName, $callback)
+	public static function create($tableName, $callback, $fresh)
 	{
 		$blueprint = $callback(new Blueprint($tableName));
 
-		return $blueprint->build();
+		return $blueprint->build($fresh);
 	}
 }

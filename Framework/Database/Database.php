@@ -56,4 +56,15 @@ class Database
 		$stmt->execute($params);
 		return true;
 	}
+
+	public function freshDatabase()
+	{
+		$db = new Database();
+		$tables = $db->select("SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE';");
+
+		foreach ($tables as $table) {
+			if ($table['TABLE_SCHEMA'] === $this->dbname)
+				$this->query('DROP TABLE ' . $table['TABLE_NAME']);
+		}
+	}
 }
