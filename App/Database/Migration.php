@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Migrations;
+namespace App\Database;
 
 use Framework\Database\Schema;
 use Framework\Database\Blueprint;

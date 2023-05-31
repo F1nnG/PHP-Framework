@@ -2,7 +2,7 @@
 
 namespace Framework\Console;
 
-use App\Database\Migrations\Migration;
+use App\Database\Migration;
 
 class Commands
 {
