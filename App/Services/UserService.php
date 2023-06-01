@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Framework\Routing\Request;
 use Framework\Views\View;
+use Framework\Helpers\Link;
 use App\Models\User;
 
 class UserService
@@ -19,6 +20,6 @@ class UserService
 			'name' => $request->input('name'),
 		])->create();
 
-		return View::render('create-user');
+		return Link::redirect('/');
 	}
 }
