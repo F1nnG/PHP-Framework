@@ -8,6 +8,7 @@ use Framework\Database\Collection;
 class Model
 {
 	public $id;
+	private $modelData = [];
 
 	static public function all(): Collection|null
 	{
@@ -48,5 +49,24 @@ class Model
 	{
 		foreach ($data as $key => $value)
 			$this->$key = $value;
+			$this->modelData[$key] = $value;
+	}
+
+	public function save()
+	{
+		$newData = array_intersect_key(get_object_vars($this), $this->modelData);
+		$tableName = strtolower(basename(get_called_class())) . 's';
+
+		$setClauses = array_map(function ($column) {
+			return $column . ' = ?';
+		}, array_keys($newData));
+
+		$query = "UPDATE $tableName SET " . implode(', ', $setClauses) . " WHERE id = ?";
+		$values = array_merge(array_values($newData), [$this->id]);
+
+		$db = new Database();
+		$db->update($query, $values);
+
+		return $this;
 	}
 }
