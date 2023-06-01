@@ -8,6 +8,6 @@ class View
 	{
 		extract($data);
 
-		include('../app/resources/views/' . $view . '.php');
+		include('../app/resources/views/' . str_replace('.', '/', $view) . '.php');
 	}
 }
