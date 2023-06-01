@@ -17,17 +17,17 @@ class Collection
 		}
 	}
 
-	public function first(): Model|null
+	public function first()
 	{
 		return $this->find(0);
 	}
 
-	public function last(): Model|null
+	public function last()
 	{
 		return $this->find(count($this->items) - 1);
 	}
 
-	public function find(int $index): Model|null
+	public function find(int $index)
 	{
 		return $this->items[$index] ?? null;
 	}

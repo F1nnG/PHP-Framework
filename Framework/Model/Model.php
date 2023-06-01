@@ -22,7 +22,7 @@ class Model
 		return null;
 	}
 
-	static public function find(int $id): Model|null
+	static public function find(int $id)
 	{
 		$db = new Database();
 		$name = basename(get_called_class());

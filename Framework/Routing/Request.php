@@ -13,7 +13,7 @@ class Request
 		$this->server = $server;
 	}
 
-	public function input(string|null $key = null): string|null
+	public function input(string|null $key = null): array|string|null
 	{
 		if ($key)
 			return $this->request[$key];
@@ -21,7 +21,7 @@ class Request
 		return $this->request;
 	}
 
-	public function server(string|null $key = null): string|null
+	public function server(string|null $key = null): array|string|null
 	{
 		if ($key)
 			return $this->server[$key];

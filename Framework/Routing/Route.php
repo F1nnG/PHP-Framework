@@ -10,7 +10,7 @@ class Route
 {
 	private static $routes = [];
 
-	public static function get(string $route, $callback)
+	public static function get(string $route, \Closure|array $callback): void
 	{
 		if (gettype($callback) == 'object')
 			self::createRoute($route, $callback, 'GET');
@@ -21,12 +21,18 @@ class Route
 		}
 	}
 
-	public static function post(string $route, \Closure $callback)
+	public static function post(string $route, \Closure|array $callback): void
 	{
-		self::createRoute($route, $callback, 'POST');
+		if (gettype($callback) == 'object')
+			self::createRoute($route, $callback, 'POST');
+		else {
+			$controller = new $callback[0]();
+			$closure = Closure::fromCallable([$controller, $callback[1]]);
+			self::createRoute($route, $closure, 'POST');
+		}
 	}
 
-	private static function createRoute(string $route, \Closure $callback, string $method)
+	private static function createRoute(string $route, \Closure $callback, string $method): void
 	{
 		$pattern = '/{(?<Model>[a-zA-Z]*)}/m';
 
