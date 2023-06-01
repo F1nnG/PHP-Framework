@@ -10,4 +10,4 @@ Route::get('/', [HomeController::class, 'show']);
 
 Route::get('/users/create', [UserController::class, 'create'], 'users.create');
 
-Route::post('/users/store', [UserController::class, 'store']);
+Route::post('/users/store', [UserController::class, 'store'], 'users.store');

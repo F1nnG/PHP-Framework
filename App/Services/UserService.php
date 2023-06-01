@@ -11,7 +11,9 @@ class UserService
 {
 	public static function create()
 	{
-		return View::render('create-user');
+		return View::render('create-user', [
+			'Link' => Link::class,
+		]);
 	}
 
 	public static function store(Request $request)

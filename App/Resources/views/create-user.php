@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>Create a new User</h1>
-	<form action="../users/store" method="post">
+	<form action="<?= $Link::get('users.store') ?>" method="post">
 		<input type="text" name="name" placeholder="name">
 		<input type="submit" value="Create">
 	</form>

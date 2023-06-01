@@ -7,7 +7,7 @@
 </head>
 <body>
 	<h1>PHP-Framework</h1>
-	<p>Framework Maker: {{ maker }}</p>
+	<p>Framework Maker: <?= $maker ?></p>
 
 	<h2>Console commands:</h2>
 	<h4>- php artisan migrate</h4>
