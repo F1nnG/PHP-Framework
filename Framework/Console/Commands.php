@@ -39,7 +39,7 @@ class Commands
 			Migration::run();
 
 		$this->message("Database Migration: ", 'white');
-		$this->message("Success\n", 'light_green');
+		$this->message("Complete\n", 'light_green');
 	}
 
 	public function seed(array $arguments): void
@@ -47,7 +47,7 @@ class Commands
 		Seeder::run();
 
 		$this->message("Database Seeding: ", 'white');
-		$this->message("Success\n", 'light_green');
+		$this->message("Complete\n", 'light_green');
 	}
 
 	public function createcontroller(array $arguments): void
@@ -60,7 +60,7 @@ class Commands
 		file_put_contents($filename, $phpCode);
 
 		$this->message("Controller Creation: ", 'white');
-		$this->message("Success\n", 'light_green');
+		$this->message("Complete\n", 'light_green');
 	}
 
 	public function createservice(array $arguments):void
@@ -73,7 +73,7 @@ class Commands
 		file_put_contents($filename, $phpCode);
 
 		$this->message("Service Creation: ", 'white');
-		$this->message("Success\n", 'light_green');
+		$this->message("Complete\n", 'light_green');
 	}
 
 	public function createmodel(array $arguments): void
@@ -86,7 +86,7 @@ class Commands
 		file_put_contents($filename, $phpCode);
 
 		$this->message("Model Creation: ", 'white');
-		$this->message("Success\n", 'light_green');
+		$this->message("Complete\n", 'light_green');
 	}
 
 	public function createFactory(array $arguments): void
@@ -99,7 +99,7 @@ class Commands
 		file_put_contents($filename, $phpCode);
 
 		$this->message("Factory Creation: ", 'white');
-		$this->message("Success\n", 'light_green');
+		$this->message("Complete\n", 'light_green');
 	}
 
 	private function message(string $message, string $color): void
