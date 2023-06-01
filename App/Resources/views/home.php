@@ -7,7 +7,9 @@
 </head>
 <body>
 	<h1>PHP-Framework</h1>
-	<p>Framework Maker: <?= $maker ?></p>
+	<p>Framework Maker: Finn</p>
+
+	<a href="<?= $Link::get('users.index') ?>"><h1>Users</h1></a>
 
 	<h2>Console commands:</h2>
 	<h4>- php artisan migrate</h4>

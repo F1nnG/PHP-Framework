@@ -47,9 +47,10 @@ class Model
 
 	public function setModelData(array $data): void
 	{
-		foreach ($data as $key => $value)
+		foreach ($data as $key => $value) {
 			$this->$key = $value;
 			$this->modelData[$key] = $value;
+		}
 	}
 
 	public function save()

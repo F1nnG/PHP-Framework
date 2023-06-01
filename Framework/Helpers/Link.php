@@ -15,7 +15,7 @@ class Link
 	{
 		$route = Route::getRouteByName($routeName);
 
-		if ($route['usesModel']) {
+		if (isset($route['usesModel'])) {
 			$route['route'] = str_replace('{' . $route['model'] . '}', $modelId, $route['route']);
 		}
 

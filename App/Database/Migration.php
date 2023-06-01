@@ -11,6 +11,8 @@ class Migration {
 		Schema::create('users', function (Blueprint $table) {
 			$table->id();
 			$table->string('name');
+			$table->string('email');
+			$table->integer('age');
 
 			return $table;
 		}, $fresh);

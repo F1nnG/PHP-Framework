@@ -9,7 +9,12 @@
 <body>
 	<h1>Create a new User</h1>
 	<form action="<?= $Link::get('users.store') ?>" method="post">
-		<input type="text" name="name" placeholder="name">
+		<label for="name">Name:</label>
+		<input type="text" name="name" placeholder="name"><br><br>
+		<label for="email">Email:</label>
+		<input type="email" name="email" placeholder="email"><br><br>
+		<label for="age">Age:</label>
+		<input type="number" name="age" placeholder="age"><br><br><br>
 		<input type="submit" value="Create">
 	</form>
 </body>
