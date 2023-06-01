@@ -29,10 +29,10 @@ class Database
 		}
 	}
 
-	public function query(string $query): bool
+	public function query(string $query, array $params = []): bool
 	{
 		$stmt = $this->conn->prepare($query);
-		$stmt->execute();
+		$stmt->execute($params);
 
 		return true;
 	}

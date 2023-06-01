@@ -69,4 +69,17 @@ class Model
 
 		return $this;
 	}
+
+	public function delete()
+	{
+		$tableName = strtolower(basename(get_called_class())) . 's';
+
+		$db = new Database();
+		$db->query("DELETE FROM $tableName WHERE id = ?", [$this->id]);
+
+		foreach ($this as $key => $value)
+			unset($this->$key);
+
+		return null;
+	}
 }
