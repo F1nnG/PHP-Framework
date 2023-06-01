@@ -11,9 +11,13 @@ class Link
 		header("Location: $link");
 	}
 
-	public static function get($routeName)
+	public static function get($routeName, $modelId = null)
 	{
 		$route = Route::getRouteByName($routeName);
+
+		if ($route['usesModel']) {
+			$route['route'] = str_replace('{' . $route['model'] . '}', $modelId, $route['route']);
+		}
 
 		return 'http://' . getallheaders()['Host'] . $route['route'];
 	}
