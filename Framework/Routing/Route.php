@@ -43,6 +43,7 @@ class Route
 		if ($usesModel) {
 			$regex = str_replace('/', '\/', $route);
 			$regex = str_replace('{' . $matches[0]['Model'] . '}', '(?<id>[0-9]*)', $regex);
+			$regex .= '$';
 		}
 
 		self::$routes[$route] = [
@@ -61,10 +62,10 @@ class Route
 		$route = self::getRoute($request->url());
 
 		if (!$route)
-			return new Error(404, 'Page ' . $request->url() . ' Not Found');
+			throw new Error(404, 'Page ' . $request->url() . ' Not Found');
 
 		if (!self::isCallable($route))
-			return new Error(404, 'Method Not Found');
+			throw new Error(404, 'Method Not Found');
 
 		self::triggerRoute($route, $request);
 

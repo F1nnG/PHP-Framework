@@ -16,3 +16,10 @@ Route::get('/users/{User}/edit', [UserController::class, 'edit'], 'users.edit');
 Route::post('/users/store', [UserController::class, 'store'], 'users.store');
 Route::post('/users/{User}/update', [UserController::class, 'update'], 'users.update');
 Route::post('/users/{User}/destroy', [UserController::class, 'destroy'], 'users.destroy');
+
+use Framework\Routing\Request;
+Route::get('/test', function (Request $request) {
+	$request->validate([
+		'name' => 'required|string|integer',
+	]);
+});

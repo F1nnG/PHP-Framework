@@ -66,6 +66,6 @@ class UserService
 	{
 		$user->delete();
 
-		return Link::redirect('/users');
+		return Link::redirect('/');
 	}
 }

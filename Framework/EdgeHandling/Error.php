@@ -2,10 +2,18 @@
 
 namespace Framework\EdgeHandling;
 
-class Error
+use Exception;
+use Throwable;
+
+class Error extends Exception implements Throwable
 {
-	public function __construct(int $type, string $message)
+	public function __construct(int $type, $message = "", $code = 0, Throwable $previous = null)
 	{
-		echo "<h1>$type: $message</h1>";
+		parent::__construct($message, $code, $previous);
+	}
+
+	public function __toString()
+	{
+		return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
 	}
 }

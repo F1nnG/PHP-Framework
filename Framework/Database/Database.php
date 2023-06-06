@@ -25,7 +25,7 @@ class Database
 			$this->conn = new \PDO($this->dsn, $this->username, $this->password);
 			$this->conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		} catch (\PDOException $e) {
-			return new Error(500, $e->getMessage());
+			throw new Error(500, $e->getMessage());
 		}
 	}
 

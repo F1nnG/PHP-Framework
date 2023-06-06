@@ -10,6 +10,8 @@ class Request
 	public function __construct(array $request, array $server)
 	{
 		$this->request = $request;
+		// $this->request['test'] = 'false';
+		$this->request['name'] = '1';
 		$this->server = $server;
 	}
 
@@ -32,5 +34,12 @@ class Request
 	public function url(): string
 	{
 		return '/' . $this->request['url'];
+	}
+
+	public function validate(array $rules): void
+	{
+		$validator = new Validator($this->request, $rules);
+
+		$validator->validate();
 	}
 }
